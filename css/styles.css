@@ -12,7 +12,7 @@
 }
 
 body {
-    background: linear-gradient(white, blue);
+    background: linear-gradient(blue, yellow);
     background-size: cover;        
     filter: brightness(75%);    
 }
