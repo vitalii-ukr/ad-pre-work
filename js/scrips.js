@@ -7,16 +7,33 @@ async function tryToFindLocality(localityName){
     apiUrl.searchParams.append("name", localityName);    
     const response = await fetch(apiUrl);
     var respinseAsJson = await response.json();
+    
+    var localities = document.getElementById("localities");    
+    while(localities.hasChildNodes())
+    {        
+        localities.childNodes[0].remove();
+    }
+        
     try
-    {
+    {        
+        console.log(JSON.stringify(respinseAsJson.results));
+        respinseAsJson.results.forEach(locality => {
+            console.log(locality.country + locality.admin1 + locality.name);            
+            localities.appendChild(new Option(locality.country + ' / ' + locality.admin1 + ' / ' + locality.name), locality);
+        })
+
+        document.getElementById("possibleLocalities").removeAttribute("hidden");
+       
+        // selected first locality
         var targetLocality = respinseAsJson.results[0];
         document.getElementById("latitude").value = targetLocality.latitude;
         document.getElementById("longitude").value = targetLocality.longitude;
+        
     }
     catch(e)
     {
         alert("Cannot find any locality with name: " + localityName);
-    }    
+    }        
 }
 
 function searchButtonClick(){
