@@ -2,13 +2,9 @@
 // use "name" for searching
 const localityAPIUrl = "https://geocoding-api.open-meteo.com/v1/search";
 
-document.getElementById("searchField").addEventListener("keydown", async (event) => {
-    if(event.key !== "Enter"){
-        return;
-    }
-    
+async function tryToFindLocality(localityName){
     var apiUrl = new URL(localityAPIUrl);
-    apiUrl.searchParams.append("name", event.target.value);    
+    apiUrl.searchParams.append("name", localityName);    
     const response = await fetch(apiUrl);
     var respinseAsJson = await response.json();
     try
@@ -19,9 +15,22 @@ document.getElementById("searchField").addEventListener("keydown", async (event)
     }
     catch(e)
     {
-        alert("Cannot find any locality with name: " + event.target.value);
+        alert("Cannot find any locality with name: " + localityName);
+    }    
+}
+
+function searchButtonClick(){
+    var localityName = document.getElementById("searchField").value;
+    alert(localityName);
+    tryToFindLocality(localityName);
+}
+
+document.getElementById("searchField").addEventListener("keydown", async (event) => {
+    if(event.key !== "Enter"){
+        return;
     }
-    
+    var localityName = event.target.value;
+    tryToFindLocality(localityName);
 });
 
 
