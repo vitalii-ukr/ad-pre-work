@@ -1,11 +1,60 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
     <title>Advanced pre-work</title>
 </head>
+
 <body>
-    
+    <div class="title">
+        Wheather API
+    </div>
+
+    <div class="searchPanel">
+        <div id="searchForm">
+            <lable for="searchField">Enter locality</lable>
+            <input id="searchField" type="text" value="Green Bay" autocomplete="off" placeholder="Input name and press 'Enter'">
+                <input type="button" value="search" onclick='searchButtonClick()'>
+            <div id="possibleLocalities" hidden>
+                <label for="localityList">Select your locality:</label>
+                <select name="localities" id="localities">
+                   
+                </select>
+            </div>
+            <div>
+                <label for="latitude">Latitude</label>
+                <input type="text" id="latitude" value="44.5192" disabled />
+                <label for="longitude">Longitude</label>
+                <input type="text" id="longitude" value="-88.0198" disabled />
+            </div>
+
+        </div>
+        <div id="collectedData">
+            <label for="temperature">Temperature</label>
+            <input type="checkbox" id="temperature" checked />
+            <label for="humidity">Humidity</label>
+            <input type="checkbox" id="humidity" />
+            <input type="button" value="show/refresh" onclick="showWeatherData()"/>
+        </div>
+        <div id="dataShownTypeForm">
+            <label for="plainType">Table</label>
+            <input type="radio" id="plainType" name="dataShownType" checked />
+            <label for="chartType">Chart</label>
+            <input type="radio" id="chartType" name="dataShownType" disabled/>
+        </div>
+    </div>
+    <div id="dataInfo" data-source="">
+        <div id="plainDataType">
+
+        </div>
+        <div id="chartDataType">
+
+        </div>
+    </div>
+
     <script src="js/scrips.js"></script>
 </body>
+
 </html>

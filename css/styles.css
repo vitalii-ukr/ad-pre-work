@@ -1,0 +1,43 @@
+.title {
+    text-shadow: 2px 2px 5px rgba(48, 36, 114, 0.7);
+    text-align: center;
+    font-size: x-large;    
+    font-weight: bolder;    
+}
+
+.searchPanel {
+    text-align: center;
+    font-size: large;    
+    font-weight: bold; 
+}
+
+body {
+    color: black;
+    background: linear-gradient(lightblue, lightyellow);
+    background-size: cover;        
+    filter: brightness(75%);    
+}
+
+#latitude,
+#longitude {
+    width: 10ch;
+}
+
+table {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table thead {
+    font-weight: bold;        
+}
+
+table td {
+    min-width: 15ch;
+    margin: 25px;
+    text-align: center;
+}
+
+#plainDataType {
+    text-align: center;
+}
