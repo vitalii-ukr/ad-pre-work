@@ -12,21 +12,20 @@ function showChartData(){
 
 var dataShownTypesElements = document.getElementById("dataShownTypeForm").querySelectorAll("input[type=radio]");
 dataShownTypesElements.forEach(element => {
-    alert('add listener to '+element.id+' outside');
-    element.addEventListener("change", (shownTypeElement) => {
-        shownTypeElementId = shownTypeElement.target.id;
-        alert('changed: '+ shownTypeElementId);
-        var shownType = shownTypeElementId.replace("Type", "").toLowerCase();
+    const shownElementId = element.id;
+    var shownType = shownElementId.replace("Type", "").toLowerCase();    
         switch(shownType)
         {
             case "plain":
+                element.addEventListener("change", () => {
                 showPlainData();
+                });                                
                 break;
             case "chart":
+                element.addEventListener("change", () => {
                 showChartData();
+                }); 
                 break;
             default: alert("Shown data type: " + shownTypeElementId + " not supported!");
         }
-
-    })
 });
