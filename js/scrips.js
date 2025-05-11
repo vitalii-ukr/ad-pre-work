@@ -87,5 +87,5 @@ document.getElementById("localities").addEventListener("change", async (event) =
 })
 
 function showWeatherData(){
-
+    document.getElementById("dataShownTypeForm").querySelectorAll("input[type=radio][checked]").forEach(e => {e.dispatchEvent(new Event("change"))});
 }
