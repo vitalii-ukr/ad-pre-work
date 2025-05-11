@@ -12,7 +12,11 @@
 }
 
 body {
-    background: linear-gradient(white, blue);
+    background: linear-gradient(blue, yellow);
     background-size: cover;        
     filter: brightness(75%);    
+}
+
+#latitude, #longitude {
+    width: 10ch;
 }
