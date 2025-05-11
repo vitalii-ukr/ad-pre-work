@@ -12,6 +12,7 @@
 }
 
 body {
+    color: lightgray;
     background: linear-gradient(blue, yellow);
     background-size: cover;        
     filter: brightness(75%);    

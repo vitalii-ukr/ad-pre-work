@@ -1,10 +1,39 @@
 // API for finding coordinates by city name
 // use "name" for searching
 const localityAPIUrl = "https://geocoding-api.open-meteo.com/v1/search";
+const weatherAPIUrl = "https://api.open-meteo.com/v1/forecast"
+//?latitude=48.7501&longitude=30.2194&hourly=temperature_2m,relative_humidity_2m&forecast_days=1
 
 function setLocality(locality){
     document.getElementById("latitude").value = locality.latitude;
     document.getElementById("longitude").value = locality.longitude;
+}
+
+async function fetchWeatherData(){
+    var isUrlHasSearchParameters = false;
+    var apiUrl = new URL(weatherAPIUrl);
+    if (document.getElementById("temperature").checked) {
+        apiUrl.searchParams.append("hourly", "temperature_2m");
+        isUrlHasSearchParameters = true;
+    }
+    if (document.getElementById("humidity").checked) {        
+        apiUrl.searchParams.append("hourly", "relative_humidity_2m");
+        isUrlHasSearchParameters = true;
+    }
+
+    if(!isUrlHasSearchParameters){
+        alert("Please, select data for displaying");
+        return;
+    }
+
+    // forecast data for only 1 day
+    apiUrl.searchParams.append("forecast_days", 1);
+    apiUrl.searchParams.append("latitude", document.getElementById("latitude").value);
+    apiUrl.searchParams.append("longitude", document.getElementById("longitude").value);
+    
+    const response = await fetch(apiUrl);
+    var respinseAsJson = await response.json();
+    setWeatherDataCache(JSON.stringify(respinseAsJson));
 }
 
 async function tryToFindLocality(localityName){
@@ -48,6 +77,12 @@ document.getElementById("searchField").addEventListener("keydown", async (event)
     tryToFindLocality(localityName);
 });
 
+function setWeatherDataCache(newWeatherData){
+    document.getElementById("dataInfo").setAttribute("data-source", newWeatherData);
+}
+function getWeatherDataCache(){
+    return document.getElementById("dataInfo").getAttribute("data-source");
+}
 
 function showPlainData(){
     alert("plain data");
@@ -87,5 +122,6 @@ document.getElementById("localities").addEventListener("change", async (event) =
 })
 
 function showWeatherData(){
+    fetchWeatherData();
     document.getElementById("dataShownTypeForm").querySelectorAll("input[type=radio][checked]").forEach(e => {e.dispatchEvent(new Event("change"))});
 }
