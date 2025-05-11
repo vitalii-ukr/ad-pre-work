@@ -112,9 +112,10 @@ function showPlainData(){
     if(isJSONObjectEmpty(data)){
         return;
     }
-
-    var plainDataContainer = document.getElementById("plainDataType");
+       
     cleanDataContainer();
+    var plainDataContainer = document.getElementById("plainDataType");
+    plainDataContainer.appendChild(document.createTextNode("Forecast on " + (new Date(data.hourly.time[0])).toLocaleDateString()));
     var hasTemerature = data.hourly.hasOwnProperty("temperature_2m");
     var hasHumidity = data.hourly.hasOwnProperty("relative_humidity_2m");
     
@@ -132,7 +133,8 @@ function showPlainData(){
     for (var i = 0; i < data.hourly.time.length; i++) {
         var row = tbody.insertRow(i);
         
-        row.insertCell().innerHTML = data.hourly.time[i];
+        const dateTime = new Date(data.hourly.time[i]);
+        row.insertCell().innerHTML = dateTime.toLocaleTimeString();
         if (hasHumidity) {            
             row.insertCell().innerHTML = data.hourly.relative_humidity_2m[i];
         }

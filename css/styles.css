@@ -12,24 +12,32 @@
 }
 
 body {
-    color: lightgray;
-    background: linear-gradient(blue, yellow);
+    color: black;
+    background: linear-gradient(lightblue, lightyellow);
     background-size: cover;        
     filter: brightness(75%);    
 }
 
-#latitude, #longitude {
+#latitude,
+#longitude {
     width: 10ch;
 }
-table{
+
+table {
     margin-left: auto;
     margin-right: auto;
 }
-table thead{
+
+table thead {
     font-weight: bold;        
 }
-table td{
+
+table td {
     min-width: 15ch;
     margin: 25px;
+    text-align: center;
+}
+
+#plainDataType {
     text-align: center;
 }
