@@ -16,3 +16,7 @@ body {
     background-size: cover;        
     filter: brightness(75%);    
 }
+
+#latitude, #longitude {
+    width: 10ch;
+}

@@ -13,18 +13,18 @@
     </div>
 
     <div class="searchPanel">
-        <form id="searchForm">
+        <div id="searchForm">
             <lable for="searchField">Enter locality</lable>
-            <input id="searchField" type="text" value="Green Bay/Wisconsin">
+            <input id="searchField" type="text" value="Green Bay" autocomplete="off" placeholder="Input name and press 'Enter'" >
             <div>
-                <label for="altitude">Altitude</label>
-                <input type="text" id="altitude" />
+                <label for="latitude">Latitude</label>
+                <input type="text" id="latitude" value="44.5192" disabled/>
                 <label for="longitude">Longitude</label>
-                <input type="text" id="longitude" />
+                <input type="text" id="longitude" value="-88.0198" disabled/>
             </div>
 
             <input type="button" value="search">
-        </form>
+        </div>
         <form id="collectedData">
             <label for="temperature">Temperature</label>
             <input type="checkbox" id="temperature" checked />
