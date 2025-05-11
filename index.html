@@ -1,11 +1,54 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/styles.css" type="text/css">
     <title>Advanced pre-work</title>
 </head>
+
 <body>
-    
+    <div class="title">
+        Wheather API
+    </div>
+
+    <div class="searchPanel">
+        <form id="searchForm">
+            <lable for="searchField">Enter locality</lable>
+            <input id="searchField" type="text" value="Green Bay/Wisconsin">
+            <div>
+                <label for="altitude">Altitude</label>
+                <input type="text" id="altitude" />
+                <label for="longitude">Longitude</label>
+                <input type="text" id="longitude" />
+            </div>
+
+            <input type="button" value="search">
+        </form>
+        <form id="collectedData">
+            <label for="temperature">Temperature</label>
+            <input type="checkbox" id="temperature" checked />
+            <label for="humidity">Humidity</label>
+            <input type="checkbox" id="humidity" />
+            <input type="button" value="show" />
+        </form>
+        <div id="dataShownTypeForm">
+            <label for="plainType">Table</label>
+            <input type="radio" id="plainType" name="dataShownType" checked />
+            <label for="chartType">Chart</label>
+            <input type="radio" id="chartType" name="dataShownType" />            
+        </div>
+    </div>
+    <div class="data">
+        <div class="plainDataType">
+
+        </div>
+        <div class="chartDataType">
+
+        </div>
+    </div>
+
     <script src="js/scrips.js"></script>
 </body>
+
 </html>

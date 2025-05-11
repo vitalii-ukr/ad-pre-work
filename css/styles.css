@@ -1,0 +1,18 @@
+.title {
+    text-shadow: 2px 2px 5px rgba(48, 36, 114, 0.7);
+    text-align: center;
+    font-size: x-large;    
+    font-weight: bolder;    
+}
+
+.searchPanel {
+    text-align: center;
+    font-size: large;    
+    font-weight: bold; 
+}
+
+body {
+    background: linear-gradient(white, blue);
+    background-size: cover;        
+    filter: brightness(75%);    
+}
