@@ -15,8 +15,8 @@
     <div class="searchPanel">
         <div id="searchForm">
             <lable for="searchField">Enter locality</lable>
-            <input id="searchField" type="text" value="Green Bay" autocomplete="off"
-                placeholder="Input name and press 'Enter'">
+            <input id="searchField" type="text" value="Green Bay" autocomplete="off" placeholder="Input name and press 'Enter'">
+                <input type="button" value="search" onclick='searchButtonClick()'>
             <div id="possibleLocalities" hidden>
                 <label for="localityList">Select your locality:</label>
                 <select name="localities" id="localities">
@@ -30,14 +30,13 @@
                 <input type="text" id="longitude" value="-88.0198" disabled />
             </div>
 
-            <input type="button" value="search" onclick='searchButtonClick()'>
         </div>
         <div id="collectedData">
             <label for="temperature">Temperature</label>
             <input type="checkbox" id="temperature" checked />
             <label for="humidity">Humidity</label>
             <input type="checkbox" id="humidity" />
-            <input type="button" value="show" />
+            <input type="button" value="show" onclick="showWeatherData()"/>
         </div>
         <div id="dataShownTypeForm">
             <label for="plainType">Table</label>

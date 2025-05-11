@@ -2,6 +2,11 @@
 // use "name" for searching
 const localityAPIUrl = "https://geocoding-api.open-meteo.com/v1/search";
 
+function setLocality(locality){
+    document.getElementById("latitude").value = locality.latitude;
+    document.getElementById("longitude").value = locality.longitude;
+}
+
 async function tryToFindLocality(localityName){
     var apiUrl = new URL(localityAPIUrl);
     apiUrl.searchParams.append("name", localityName);    
@@ -17,16 +22,12 @@ async function tryToFindLocality(localityName){
         
     try
     {   
-        respinseAsJson.results.forEach(locality => {
-            localities.appendChild(new Option(locality.country + ' / ' + locality.admin1 + ' / ' + locality.name), locality);
+        respinseAsJson.results.forEach(locality => {                        
+            localities.appendChild(new Option(locality.country + ' / ' + locality.admin1 + ' / ' + locality.name, JSON.stringify(locality)));
         })
-
+        
+        setLocality(respinseAsJson.results[0]);
         document.getElementById("possibleLocalities").removeAttribute("hidden");
-       
-        // selected first locality
-        var targetLocality = respinseAsJson.results[0];
-        document.getElementById("latitude").value = targetLocality.latitude;
-        document.getElementById("longitude").value = targetLocality.longitude;
     }
     catch(e)
     {
@@ -77,3 +78,14 @@ dataShownTypesElements.forEach(element => {
             default: alert("Shown data type: " + shownTypeElementId + " not supported!");
         }    
 });
+
+document.getElementById("localities").addEventListener("change", async (event) => {
+    // selected first locality    
+    var targetLocality = JSON.parse(event.target.value);
+    console.log(targetLocality);
+    setLocality(targetLocality);
+})
+
+function showWeatherData(){
+
+}
