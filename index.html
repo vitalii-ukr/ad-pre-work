@@ -36,7 +36,7 @@
             <input type="checkbox" id="temperature" checked />
             <label for="humidity">Humidity</label>
             <input type="checkbox" id="humidity" />
-            <input type="button" value="show" onclick="showWeatherData()"/>
+            <input type="button" value="show/refresh" onclick="showWeatherData()"/>
         </div>
         <div id="dataShownTypeForm">
             <label for="plainType">Table</label>
@@ -46,10 +46,10 @@
         </div>
     </div>
     <div id="dataInfo" data-source="">
-        <div class="plainDataType">
+        <div id="plainDataType">
 
         </div>
-        <div class="chartDataType">
+        <div id="chartDataType">
 
         </div>
     </div>

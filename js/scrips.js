@@ -36,6 +36,12 @@ async function fetchWeatherData(){
     setWeatherDataCache(JSON.stringify(respinseAsJson));
 }
 
+function cleanNodes(node) {
+    while (node.hasChildNodes()) {
+        node.childNodes[0].remove();
+    }
+}
+
 async function tryToFindLocality(localityName){
     var apiUrl = new URL(localityAPIUrl);
     apiUrl.searchParams.append("name", localityName);    
@@ -44,10 +50,7 @@ async function tryToFindLocality(localityName){
     
     var localities = document.getElementById("localities");
     // clear privious results    
-    while(localities.hasChildNodes())
-    {        
-        localities.childNodes[0].remove();
-    }
+    cleanNodes(localities);
         
     try
     {   
@@ -81,15 +84,69 @@ function setWeatherDataCache(newWeatherData){
     document.getElementById("dataInfo").setAttribute("data-source", newWeatherData);
 }
 function getWeatherDataCache(){
-    return document.getElementById("dataInfo").getAttribute("data-source");
+    const cache = document.getElementById("dataInfo").getAttribute("data-source");
+    var dataObject;
+    try
+    {
+        dataObject = JSON.parse(cache);        
+    }
+    catch(e)
+    {        
+        dataObject = {};
+    }
+    return dataObject;
+}
+
+function isJSONObjectEmpty(obj){
+    return JSON.stringify(obj) === JSON.stringify({});
+}
+
+function cleanDataContainer(){
+    cleanNodes(document.getElementById("plainDataType"));
+    cleanNodes(document.getElementById("chartDataType"));
 }
 
 function showPlainData(){
-    alert("plain data");
+    console.log("plain");
+    var data = getWeatherDataCache();
+    if(isJSONObjectEmpty(data)){
+        return;
+    }
 
+    var plainDataContainer = document.getElementById("plainDataType");
+    cleanDataContainer();
+    var hasTemerature = data.hourly.hasOwnProperty("temperature_2m");
+    var hasHumidity = data.hourly.hasOwnProperty("relative_humidity_2m");
+    
+    var table = document.createElement("table");
+    var headerRow = table.createTHead().insertRow();
+
+    var headerRowNumber = 0;
+    headerRow.insertCell(headerRowNumber++).innerHTML = "Time";
+    if(hasHumidity)
+        headerRow.insertCell(headerRowNumber++).innerHTML = "Humidity, " + data.hourly_units.relative_humidity_2m;
+    if(hasTemerature)
+        headerRow.insertCell(headerRowNumber++).innerHTML = "Temperature, " + data.hourly_units.temperature_2m;
+
+    var tbody = table.createTBody();
+    for (var i = 0; i < data.hourly.time.length; i++) {
+        var row = tbody.insertRow(i);
+        
+        row.insertCell().innerHTML = data.hourly.time[i];
+        if (hasHumidity) {            
+            row.insertCell().innerHTML = data.hourly.relative_humidity_2m[i];
+        }
+        if (hasTemerature) {            
+            row.insertCell().innerHTML = data.hourly.temperature_2m[i];
+        }                
+    }
+   
+    plainDataContainer.appendChild(table);
+    
 }
 
 function showChartData(){
+    cleanDataContainer();
     alert("chart data");
 }
 
@@ -97,7 +154,7 @@ function showChartData(){
 var dataShownTypesElements = document.getElementById("dataShownTypeForm").querySelectorAll("input[type=radio]");
 dataShownTypesElements.forEach(element => {
     const shownElementId = element.id;
-    var shownType = shownElementId.replace("Type", "").toLowerCase();    
+    var shownType = shownElementId.replace("Type", "").toLowerCase();        
     switch(shownType)
         {
             case "plain":
@@ -121,7 +178,7 @@ document.getElementById("localities").addEventListener("change", async (event) =
     setLocality(targetLocality);
 })
 
-function showWeatherData(){
-    fetchWeatherData();
+async function showWeatherData(){
+    await fetchWeatherData();
     document.getElementById("dataShownTypeForm").querySelectorAll("input[type=radio][checked]").forEach(e => {e.dispatchEvent(new Event("change"))});
 }

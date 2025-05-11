@@ -21,3 +21,15 @@ body {
 #latitude, #longitude {
     width: 10ch;
 }
+table{
+    margin-left: auto;
+    margin-right: auto;
+}
+table thead{
+    font-weight: bold;        
+}
+table td{
+    min-width: 15ch;
+    margin: 25px;
+    text-align: center;
+}
