@@ -4,7 +4,16 @@ This is advanced pre-work assessment for test basic skills for React course. Sof
 
 ## Build ##
 
+Demo don't need to build. It's enough to run project on the web server.
+
 ## Install ##
+
+Install web folder to the web server.
 
 ## Usage ##
 
+User can search locality/city using edit box for finding interesting location for forecast. Also, it's possible to choose from the help top 10 list. Button "show/refresh" helps update data.
+
+## TODO ##
+
+Graph version using chart.js will be implemented in next version
