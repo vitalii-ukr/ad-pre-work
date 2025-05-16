@@ -10,6 +10,11 @@ function setLocality(locality){
 }
 
 async function fetchWeatherData(){
+    const latitude = document.getElementById("latitude").value;
+    const longitude = document.getElementById("longitude").value;
+    if(latitude == "" || longitude == "")
+        return;
+
     var isUrlHasSearchParameters = false;
     var apiUrl = new URL(weatherAPIUrl);
     if (document.getElementById("temperature").checked) {
@@ -27,9 +32,9 @@ async function fetchWeatherData(){
     }
 
     // forecast data for only 1 day
-    apiUrl.searchParams.append("forecast_days", 1);
-    apiUrl.searchParams.append("latitude", document.getElementById("latitude").value);
-    apiUrl.searchParams.append("longitude", document.getElementById("longitude").value);
+    apiUrl.searchParams.append("forecast_days", 1);    
+    apiUrl.searchParams.append("latitude", latitude);    
+    apiUrl.searchParams.append("longitude", longitude);
     
     const response = await fetch(apiUrl);
     var respinseAsJson = await response.json();
@@ -181,6 +186,38 @@ document.getElementById("localities").addEventListener("change", async (event) =
 })
 
 async function showWeatherData(){
+    var actualUrl = new URL(document.location.origin + document.location.pathname);
+    var parameters = new URLSearchParams(
+        {
+            longitude: document.getElementById("longitude").value,
+            latitude: document.getElementById("latitude").value,
+            temperature: document.getElementById("temperature").checked,
+            humidity: document.getElementById("humidity").checked,
+        }
+    );
+    console.log("parameters: " + parameters);
+    var actualUrl = new URL(document.location.origin + document.location.pathname);
+    parameters.keys().forEach(key => {actualUrl.searchParams.set(key, parameters.get(key))});    
+    console.log("current url: "+ actualUrl);
+    if(document.location.href != actualUrl) {
+        document.location.href = actualUrl;
+        console.log("new url: " + actualUrl);        
+    }        
+
     await fetchWeatherData();
     document.getElementById("dataShownTypeForm").querySelectorAll("input[type=radio][checked]").forEach(e => {e.dispatchEvent(new Event("change"))});
 }
+
+function isChecked(param){
+    return param === 'true';
+}
+
+document.addEventListener("DOMContentLoaded", (e) => {
+    var url = new URL(document.location.href);
+    console.log(url);
+    document.getElementById("longitude").value = url.searchParams.get("longitude");
+    document.getElementById("latitude").value = url.searchParams.get("latitude");
+    document.getElementById("temperature").checked = isChecked(url.searchParams.get("temperature"));
+    document.getElementById("humidity").checked = isChecked(url.searchParams.get("humidity"));
+    showWeatherData();
+})
